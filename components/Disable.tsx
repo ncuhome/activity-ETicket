@@ -8,7 +8,7 @@ const Disable: React.FC = () => {
         Disable
       </div>
       <div className={styles.TextArea}>
-        <h3 style={{ color: "red" }}>扫码失败，请重新扫码</h3>
+        <h3 style={{ color: "red" }}>扫码失败，请重新扫码⛔</h3>
       </div>
     </>
   )
