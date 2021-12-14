@@ -12,7 +12,7 @@ const TicketPage: React.FC = () => {
 
   const { isReady } = useLogin()
 
-  const { Component, Text } = useCheckTicket("question");
+  const Component = useCheckTicket("accept");
 
   if (!isReady) {
     return <Loading/>
@@ -28,11 +28,8 @@ const TicketPage: React.FC = () => {
         />
       </Head>
       <div className={styles.base_div} style={{ marginTop: top }}>
-        <div className={styles.StatusIconArea}>
+        <div>
           {Component}
-        </div>
-        <div className={styles.TextArea}>
-          {Text}
         </div>
       </div>
     </>

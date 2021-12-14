@@ -1,8 +1,16 @@
 import React from "react";
+import styles from "./universal.module.css"
 
 const Question: React.FC = () => {
   return(
-    <div>Question</div>
+    <>
+      <div className={styles.StatusIconArea}>
+        Question  
+      </div>
+      <div className={styles.TextArea}>
+        Question
+      </div>
+    </>
   )
 }
 
