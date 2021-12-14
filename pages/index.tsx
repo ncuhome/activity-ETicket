@@ -1,5 +1,6 @@
 import React, { useEffect } from 'react'
 import Head from 'next/head'
+import Link from 'next/link'
 import Loading from '../components/loading'
 import { useLogin } from '../lib/hooks/useLogin'
 import { useSafeArea } from '../lib/hooks/useSafeArea'
@@ -98,7 +99,7 @@ const Index = () => {
         <button onClick={showVersion}>获取版本号</button>
         <button onClick={() => alert(colorScheme)}>获取当前主题</button>
 
-        <div> colors 试 </div>
+        <div> colors 测试 </div>
         <div
           style={{
             width: '100%',
@@ -110,6 +111,9 @@ const Index = () => {
         ></div>
 
         <button onClick={() => eventModule.login('username', 'pwd')}>登录</button>
+        <Link href='/testd'><p>跳转</p></Link>
+
+        <p>ddd</p>
       </div>
     </div>
   )
