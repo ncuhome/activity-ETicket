@@ -3,13 +3,13 @@ import Accpet from "../../components/Accept";
 import Disable from "../../components/Disable";
 import Question from "../../components/Question";
 
-export const useCheckTicket = (something: string): React.FC => {
+export const useCheckTicket = (something: string): React.ReactNode => {
   switch (something) {
     case "disable":
-      return Disable;
+      return <Disable />;
     case "accept":
-      return Accpet;
+      return <Accpet />
     case "question":
-      return Question;
+      return <Question />;
   }
 };

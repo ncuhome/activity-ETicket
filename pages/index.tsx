@@ -2,25 +2,20 @@ import React, { useEffect, useState } from "react";
 import Head from 'next/head'
 import { useLogin } from '../lib/hooks/useLogin'
 import { useSafeArea } from '../lib/hooks/useSafeArea'
-import { useCheckTicket } from "../lib/hooks/useCheckTicket"; //使用hooks进行组件的控制会出现无法更新页面的情况 暂时通过手动切换
-import Accpet from "../components/Accept";
-import Disable from "../components/Disable";
-import Question from "../components/Question";
+import { useCheckTicket } from "../lib/hooks/useCheckTicket";
 import Loading from '../components/loading'
 import styles from "./index.module.css"
+
+if (process.env.NODE_ENV === 'development') {
+  import('mincu-debug').then(({ default: debugModule }) => {
+    debugModule.applyConsole()
+  })
+}
 
 const TicketPage: React.FC = () => {
   const { top } = useSafeArea()
   const { isReady } = useLogin()
-
-  // const [StatusComponent,setStatusComponent] = useState<React.FC>()
-
-  const component = useCheckTicket("question");
-  // useEffect(() => {
-  //   setStatusComponent(component);
-  // }, [component])
-
-  
+  const StatusComponent = useCheckTicket("question");
 
   if (!isReady) {
     return <Loading />
@@ -37,10 +32,7 @@ const TicketPage: React.FC = () => {
       </Head>
       <div className={styles.base_div} style={{ marginTop: top }}>
         <div>
-          {/* <Accpet/> */}
-          {/* <Disable/> */}
-          {/* <Question/> */}
-          {component}
+          {StatusComponent}
         </div>
       </div>
     </>
