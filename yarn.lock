@@ -2326,6 +2326,11 @@ react-jss@^8.6.1:
     prop-types "^15.6.0"
     theming "^1.3.0"
 
+react-loading@^2.0.3:
+  version "2.0.3"
+  resolved "https://registry.nlark.com/react-loading/download/react-loading-2.0.3.tgz#e8138fb0c3e4674e481b320802ac7048ae14ffb9"
+  integrity sha1-6BOPsMPkZ05IGzIIAqxwSK4U/7k=
+
 react-refresh@0.8.3:
   version "0.8.3"
   resolved "https://registry.npmmirror.com/react-refresh/download/react-refresh-0.8.3.tgz#721d4657672d400c5e3c75d063c4a85fb2d5d68f"

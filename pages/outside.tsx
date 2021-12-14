@@ -5,7 +5,7 @@ const Outside = () => {
   return (
     <div>
       请下载南大家园App
-      <div>请授权南大家园App打开</div>
+      <div>请使用南大家园App打开</div>
     </div>
   )
 }

@@ -23,7 +23,7 @@ const Index = () => {
     eventModule.setShareConfig({
       title: '应用名',
     })
-    hideHeader()
+
   }, [])
 
   const fetchSchoolLife = async () => {
@@ -69,7 +69,7 @@ const Index = () => {
   return (
     <div>
       <Head>
-        <title>测试</title>
+        <title>测试页面</title>
         <meta
           name="viewport"
           content="width=device-width,initial-scale=1.0,maximum-scale=1.0, user-scalable=0"
@@ -111,7 +111,7 @@ const Index = () => {
         ></div>
 
         <button onClick={() => eventModule.login('username', 'pwd')}>登录</button>
-        <Link href='/testd'><p>跳转</p></Link>
+        <Link href='/ticket'><p>跳转</p></Link>
 
         <p>ddd</p>
       </div>

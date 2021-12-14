@@ -10,7 +10,8 @@ export const useAppReady = (): boolean => {
       () => setIsReady(true),
       () => Router.push('/outside')
     )
-  }, [])
+    return
+  }, [isReady])
 
   return isReady
 }
