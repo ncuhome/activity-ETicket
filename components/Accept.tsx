@@ -8,7 +8,7 @@ const Accpet: React.FC = () => {
         Accept
       </div>
       <div className={styles.TextArea}>
-        Accept text
+        <h3 style={{color:"green"}}>扫码成功，请入场</h3>
       </div>
     </>
   )

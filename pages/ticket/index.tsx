@@ -12,7 +12,7 @@ const TicketPage: React.FC = () => {
 
   const { isReady } = useLogin()
 
-  const Component = useCheckTicket("accept");
+  const Component = useCheckTicket("question");
 
   if (!isReady) {
     return <Loading/>

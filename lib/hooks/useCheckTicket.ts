@@ -21,7 +21,6 @@ export const useCheckTicket = (something: string): React.FC => {
       default:
         break;
     }
-    return
   }, [something])
  
   return StatusComponent
