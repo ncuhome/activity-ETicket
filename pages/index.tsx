@@ -15,7 +15,7 @@ if (process.env.NODE_ENV === 'development') {
 const TicketPage: React.FC = () => {
   const { top } = useSafeArea()
   const { isReady } = useLogin()
-  const StatusComponent = useCheckTicket("question");
+  const StatusComponent = useCheckTicket("accept");
 
   if (!isReady) {
     return <Loading />
