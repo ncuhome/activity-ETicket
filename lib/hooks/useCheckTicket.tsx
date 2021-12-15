@@ -6,7 +6,7 @@ import Question from "../../components/Question";
 export const useCheckTicket = (something: string): React.ReactNode => {
   switch (something) {
     case "disable":
-      return <Disable />;
+      return <Accpet />;
     case "accept":
       return <Accpet />
     case "question":
