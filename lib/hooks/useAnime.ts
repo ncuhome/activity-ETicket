@@ -10,6 +10,7 @@ export const useAnime = (props: AnimeParams = {}) => {
       console.warn('please bind the anime ref while useAnime');
       return;
     }
+    // console.log(animateTargetRef.current);
     animationRef.current = anime({
       ...props,
       targets: [animateTargetRef.current],
