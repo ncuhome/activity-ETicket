@@ -12,7 +12,6 @@ const Bilibili3d = () => {
 
     useEffect(() => {
 
-
         function Element(bv, x, y, z, ry) {
 
             const div = document.createElement('div');

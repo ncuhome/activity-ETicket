@@ -2,6 +2,7 @@ import React, { useRef, useEffect } from "react";
 import anime from "animejs"
 import { useAnime } from "../lib/hooks/useAnime";
 import styles from "./universal.module.css"
+import Logo from './Logo'
 
 const Accpet: React.FC = () => {
   const { animateTargetRef, animationRef } = useAnime({
@@ -20,6 +21,7 @@ const Accpet: React.FC = () => {
       <div className={styles.TextArea}>
         <h3 style={{ color: "rgb(7,188,12)" }}>扫码成功，请入场 🎉</h3>
       </div>
+      <Logo />
     </div>
   )
 }
