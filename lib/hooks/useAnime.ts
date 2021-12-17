@@ -1,11 +1,11 @@
 import anime, { AnimeParams, AnimeInstance } from 'animejs';
-import { useRef, useLayoutEffect } from 'react';
+import { useRef, useEffect } from 'react';
 
 export const useAnime = (props: AnimeParams = {}) => {
   const animateTargetRef = useRef<any>();
   const animationRef = useRef<AnimeInstance>();
 
-  useLayoutEffect(() => {
+  useEffect(() => {
     if (!animateTargetRef.current) {
       console.warn('please bind the anime ref while useAnime');
       return;

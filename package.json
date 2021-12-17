@@ -4,7 +4,7 @@
   "version": "2.2.0",
   "license": "MIT",
   "scripts": {
-    "dev": "next dev",
+    "dev": "next dev -p 3001",
     "build": "next build",
     "start": "next start",
     "export": "next build && next export"
@@ -14,6 +14,7 @@
     "@zeit/next-typescript": "^1.1.1",
     "animejs": "^3.2.1",
     "axios": "^0.21.0",
+    "http-proxy-middleware": "^2.0.1",
     "immer": "^7.0.14",
     "lodash": "^4.17.20",
     "mincu-react": "^2.2.0",
@@ -26,7 +27,7 @@
     "react-loading": "^2.0.3",
     "react-use": "^15.3.4",
     "styled-jsx": "^3.2.0",
-    "swr": "^0.3.8-beta.2",
+    "swr": "^1.1.2-beta.0",
     "typescript": "^4.0.5",
     "use-subscription": "^1.5.1",
     "zustand": "^3.2.0"
