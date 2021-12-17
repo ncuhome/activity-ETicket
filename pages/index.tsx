@@ -7,7 +7,7 @@ import { useCheckTicket } from "../lib/hooks/useCheckTicket";
 import { useInfoState } from '../store/index'
 import Loading from '../components/loading'
 import styles from "./index.module.css"
-import axios from "axios";
+import axios, { AxiosResponse } from "axios";
 
 if (process.env.NODE_ENV === 'development') {
   import('mincu-debug').then(({ default: debugModule }) => {
@@ -15,13 +15,25 @@ if (process.env.NODE_ENV === 'development') {
   })
 }
 
-const fetcher = url => axios.get(url).then(res => res.data)
+// const fetcher = url => axios.get(url)
+//   .then(
+//     (res) => {
+//       res
+//     }
+//   )   react的方法一直出错
+
+const fetcher = async url => {
+  const res = await fetch(url)
+  return res.json()
+} //采用swr官方推荐的fetch
+
 
 const TicketPage: React.FC = () => {
   const { top } = useSafeArea()
   // const { isReady } = useLogin()
   const studentID = useInfoState((state) => state.studentID) //获取学号
   const [token, setToken] = useState("666666")
+
   //获取url的token
   const getToken = useEffect(() => {
     const url = location.href
@@ -32,17 +44,12 @@ const TicketPage: React.FC = () => {
   }, [token])
 
   //发送请求验证
-
-  // const ticketURL = "https://qrcode-eticket.vercel.app/api/checkin"
   const ticketURL = "/api/checkin?token=" + token + "&id=" + studentID;
-  // const ticketURL = 'https://qrcode-eticket.vercel.app/api/checkin?token=666666&id=6109120073'
-  // const ticketURL = "https://v1.hitokoto.cn"
   const { data, error } = useSWR(ticketURL, fetcher);
-  // const message = data;
-  // console.log(data)
-  // console.log("error" + error)
+  console.log(typeof(data))
+  // const arr = Object.values(data)
 
-  const StatusComponent = useCheckTicket("disable");
+  const StatusComponent = useCheckTicket("accept");
 
   // if (!isReady) {
   //   return <Loading />
@@ -62,7 +69,7 @@ const TicketPage: React.FC = () => {
           {StatusComponent}
         </div>
         <div>
-
+          {data.msg}
         </div>
       </div>
     </>
