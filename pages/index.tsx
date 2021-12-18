@@ -1,23 +1,22 @@
 import React, { useEffect, useState } from "react";
 import Head from 'next/head'
+import axios from "axios";
 import { useLogin } from '../lib/hooks/useLogin'
 import { useSafeArea } from '../lib/hooks/useSafeArea'
 import { useCheckTicket } from "../lib/hooks/useCheckTicket";
 import { useInfoState } from '../store/index'
-// import Loading from '../components/loading'
 import styles from "./index.module.css"
-import axios, { AxiosResponse } from "axios";
 import Pending from "../components/Pending";
 
 // if (process.env.NODE_ENV === 'development') {
 //   import('mincu-debug').then(({ default: debugModule }) => {
 //     debugModule.applyConsole()
 //   })
-// }
+// } mincud引入代码
 
 const TicketPage: React.FC = () => {
   const [statusCode, setStatusCode] = useState(999)
-  const [token, setToken] = useState("666666")
+  const [token, setToken] = useState("")
   const { top } = useSafeArea()
   const { isReady } = useLogin()
   const studentID = useInfoState((state) => state.studentID) //获取学号
@@ -27,21 +26,19 @@ const TicketPage: React.FC = () => {
     const url = location.href
     const urlArray = url.split("?");
     setToken(urlArray[1]);
-    console.log(token)
-    console.log(studentID)
   }, [token])
 
   //发送请求验证
-  const ticketURL = "/api/checkin?token=" + token + "&id=" + studentID;
-  // const { data, error } = useSWR(ticketURL, fetcher);
   const sendTicket = useEffect(() => {
+    const ticketURL = "/api/checkin?token=" + token + "&id=" + studentID;
     axios.get(ticketURL)
       .then((res) => {
-        console.log(res) //还不知道res的结构，暂时不在此情况下修改code
+        setStatusCode(res.data.code)
       })
       .catch((err) => {
         setStatusCode(err.response.data.code)
       })
+    return
   }, [token])
 
   const StatusComponent = useCheckTicket(statusCode);
