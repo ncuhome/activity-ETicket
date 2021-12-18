@@ -9,24 +9,11 @@ import Loading from '../components/loading'
 import styles from "./index.module.css"
 import axios, { AxiosResponse } from "axios";
 
-if (process.env.NODE_ENV === 'development') {
-  import('mincu-debug').then(({ default: debugModule }) => {
-    debugModule.applyConsole()
-  })
-}
-
-// const fetcher = url => axios.get(url)
-//   .then(
-//     (res) => {
-//       res
-//     }
-//   )   react的方法一直出错
-
-const fetcher = async url => {
-  const res = await fetch(url)
-  return res.json()
-} //采用swr官方推荐的fetch
-
+// if (process.env.NODE_ENV === 'development') {
+//   import('mincu-debug').then(({ default: debugModule }) => {
+//     debugModule.applyConsole()
+//   })
+// }
 
 const TicketPage: React.FC = () => {
   const { top } = useSafeArea()
@@ -45,9 +32,16 @@ const TicketPage: React.FC = () => {
 
   //发送请求验证
   const ticketURL = "/api/checkin?token=" + token + "&id=" + studentID;
-  const { data, error } = useSWR(ticketURL, fetcher);
-  console.log(typeof(data))
-  // const arr = Object.values(data)
+  // const { data, error } = useSWR(ticketURL, fetcher);
+  const sendTicket = useEffect(() => {
+    axios.get(ticketURL)
+      .then((res) => {
+        console.log(res)
+      })
+      .catch((err) => {
+        console.log(err.response.data.code)
+      })
+  })
 
   const StatusComponent = useCheckTicket("accept");
 
@@ -68,17 +62,9 @@ const TicketPage: React.FC = () => {
         <div>
           {StatusComponent}
         </div>
-        <div>
-          {data.msg}
-        </div>
       </div>
     </>
   )
 }
-
-// TicketPage.getInitialProps = async ({ req }) => {
-//   const userAgent = req ? req.headers['user-agent'] : navigator.userAgent
-//   return { userAgent }
-// }
 
 export default TicketPage;

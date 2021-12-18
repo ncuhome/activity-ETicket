@@ -15,7 +15,7 @@ export const useAnime = (props: AnimeParams = {}) => {
       ...props,
       targets: [animateTargetRef.current],
     });
-  }, [props]);
+  }, []);
 
   return { animateTargetRef, animationRef };
 };
