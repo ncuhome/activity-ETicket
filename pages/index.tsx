@@ -16,16 +16,17 @@ import axios, { AxiosResponse } from "axios";
 // }
 
 const TicketPage: React.FC = () => {
+  const [statusCode, setStatusCode] = useState("000")
+  const [token, setToken] = useState("666666")
   const { top } = useSafeArea()
   // const { isReady } = useLogin()
   const studentID = useInfoState((state) => state.studentID) //获取学号
-  const [token, setToken] = useState("666666")
 
   //获取url的token
   const getToken = useEffect(() => {
     const url = location.href
     const urlArray = url.split("?");
-    // setToken(urlArray[1]);
+    setToken(urlArray[1]);
     console.log(token)
     console.log(studentID)
   }, [token])
@@ -36,14 +37,15 @@ const TicketPage: React.FC = () => {
   const sendTicket = useEffect(() => {
     axios.get(ticketURL)
       .then((res) => {
-        console.log(res)
+        console.log(res) //还不知道res的结构，暂时不在此情况下修改code
       })
       .catch((err) => {
-        console.log(err.response.data.code)
+        setStatusCode(err.response.data.code)
+        console.log(statusCode)
       })
-  })
+  }, [token])
 
-  const StatusComponent = useCheckTicket("accept");
+  const StatusComponent = useCheckTicket(statusCode);
 
   // if (!isReady) {
   //   return <Loading />
