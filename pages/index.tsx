@@ -1,13 +1,13 @@
 import React, { useEffect, useState } from "react";
 import Head from 'next/head'
-import useSWR from 'swr';
 import { useLogin } from '../lib/hooks/useLogin'
 import { useSafeArea } from '../lib/hooks/useSafeArea'
 import { useCheckTicket } from "../lib/hooks/useCheckTicket";
 import { useInfoState } from '../store/index'
-import Loading from '../components/loading'
+// import Loading from '../components/loading'
 import styles from "./index.module.css"
 import axios, { AxiosResponse } from "axios";
+import Pending from "../components/Pending";
 
 // if (process.env.NODE_ENV === 'development') {
 //   import('mincu-debug').then(({ default: debugModule }) => {
@@ -16,10 +16,10 @@ import axios, { AxiosResponse } from "axios";
 // }
 
 const TicketPage: React.FC = () => {
-  const [statusCode, setStatusCode] = useState("000")
+  const [statusCode, setStatusCode] = useState(999)
   const [token, setToken] = useState("666666")
   const { top } = useSafeArea()
-  // const { isReady } = useLogin()
+  const { isReady } = useLogin()
   const studentID = useInfoState((state) => state.studentID) //获取学号
 
   //获取url的token
@@ -41,15 +41,14 @@ const TicketPage: React.FC = () => {
       })
       .catch((err) => {
         setStatusCode(err.response.data.code)
-        console.log(statusCode)
       })
   }, [token])
 
   const StatusComponent = useCheckTicket(statusCode);
 
-  // if (!isReady) {
-  //   return <Loading />
-  // }
+  if (!isReady) {
+    return <Pending />
+  }
 
   return (
     <>
