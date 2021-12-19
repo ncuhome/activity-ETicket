@@ -1,12 +1,14 @@
 import React, { useEffect, useState } from "react";
 import Head from 'next/head'
 import axios from "axios";
-import { useLogin } from '../lib/hooks/useLogin'
 import { useSafeArea } from '../lib/hooks/useSafeArea'
 import { useCheckTicket } from "../lib/hooks/useCheckTicket";
 import styles from "./index.module.css"
 import Pending from "../components/Pending";
 import { API } from '../utils'
+import { dataModule } from 'mincu-react'
+import { useAppReady } from '../lib/hooks/useAppReady'
+
 
 const getParam = (key: string) => {
   const url = new URL(location.href)
@@ -16,20 +18,30 @@ const getParam = (key: string) => {
 const TicketPage: React.FC = () => {
   const [statusCode, setStatusCode] = useState(999)
   const { top } = useSafeArea()
-  const { isReady, id } = useLogin()
+  const isReady = useAppReady()
 
-  useEffect(() => {
-    if (isReady) {
-      const token = getParam('token')
-      if (token && id) {
+  const checkin = () => {
+    const token = getParam('token')
+    if (token) {
+      setTimeout(() => {
+        const id = dataModule.appData.user.profile.entireProfile.base_info.xh
         const ticketURL = `${API}/checkin?token=${token}&id=${id}`;
         axios.get(ticketURL)
           .then((res) => {
             setStatusCode(res.data.code)
           })
-      } else {
-        setStatusCode(403)
-      }
+          .catch((err) => {
+            setStatusCode(200)
+          })
+      }, 3000)
+    } else {
+      setStatusCode(200)
+    }
+  }
+
+  useEffect(() => {
+    if (isReady) {
+      checkin()
     }
   }, [isReady])
 

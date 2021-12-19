@@ -82,3 +82,5 @@ jspm_packages/
 
 # Built files
 dist
+
+.vercel
