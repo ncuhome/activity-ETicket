@@ -24,9 +24,20 @@ const TicketPage: React.FC = () => {
   //获取url的token
   const getToken = useEffect(() => {
     const url = location.href
-    const urlArray = url.split("?");
-    setToken(urlArray[1]);
+    const param = getURLParam(url);
+    setToken(param.token);
   }, [token])
+
+  //解析urlParam
+  const getURLParam = (url) => {
+    const _url = url || window.location.href;
+    const _urlParams = _url.match(/([?&])(.+?=[^&]+)/igm);
+    return _urlParams ? _urlParams.reduce((a, b) => {
+      const value = b.slice(1).split('=');
+      a[value[0]] = value[1]
+      return a;
+    }, {}) : {};
+  }
 
   //发送请求验证
   const sendTicket = useEffect(() => {
