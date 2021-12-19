@@ -6,7 +6,6 @@ import { useSafeArea } from '../lib/hooks/useSafeArea'
 import { useCheckTicket } from "../lib/hooks/useCheckTicket";
 import styles from "./index.module.css"
 import Pending from "../components/Pending";
-import { dataModule } from "mincu-react";
 import { API } from '../utils'
 
 const getParam = (key: string) => {
@@ -20,18 +19,19 @@ const TicketPage: React.FC = () => {
   const { isReady, id } = useLogin()
 
   useEffect(() => {
-    const token = getParam('token')
-    if (token && id) {
-      const ticketURL = `${API}/checkin?token=${token}&id=${id}`;
-
-      axios.get(ticketURL)
-        .then((res) => {
-          setStatusCode(res.data.code)
-        })
-    } else {
-      setStatusCode(403)
+    if (isReady) {
+      const token = getParam('token')
+      if (token && id) {
+        const ticketURL = `${API}/checkin?token=${token}&id=${id}`;
+        axios.get(ticketURL)
+          .then((res) => {
+            setStatusCode(res.data.code)
+          })
+      } else {
+        setStatusCode(403)
+      }
     }
-  }, [id])
+  }, [isReady])
 
   if (!isReady) {
     return <Pending />

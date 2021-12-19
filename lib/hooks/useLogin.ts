@@ -8,11 +8,11 @@ export const useLogin = () => {
 
   useEffect(() => {
     if (isReady) {
-      const data = dataModule.appData
+      const data = dataModule.userInfo
 
       if (!data) return
 
-      setId(data.user?.profile?.entireProfile?.base_info?.xh)
+      setId(data?.profile?.entireProfile?.base_info?.xh)
     }
   }, [isReady])
 
