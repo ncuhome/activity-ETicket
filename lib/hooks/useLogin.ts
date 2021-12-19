@@ -1,11 +1,10 @@
-import { useEffect } from 'react'
+import { useEffect, useState } from 'react'
 import { useAppReady } from './useAppReady'
-import { useInfoState } from '../../store/index'
 import { dataModule } from 'mincu-react'
 
 export const useLogin = () => {
   const isReady = useAppReady()
-  const handleValue = useInfoState((state) => state.handleValue)
+  const [id, setId] = useState('')
 
   useEffect(() => {
     if (isReady) {
@@ -13,11 +12,9 @@ export const useLogin = () => {
 
       if (!data) return
 
-      handleValue('username', data.user?.profile?.basicProfile?.name)
-      handleValue('avatar', data.user?.profile?.basicProfile?.app_avatar_url)
-      handleValue('studentID', data.user?.profile?.entireProfile?.base_info?.xh)
+      setId(data.user?.profile?.entireProfile?.base_info?.xh)
     }
   }, [isReady])
 
-  return { isReady }
+  return { isReady, id }
 }

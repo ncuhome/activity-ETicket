@@ -7,12 +7,7 @@ import { useCheckTicket } from "../lib/hooks/useCheckTicket";
 import styles from "./index.module.css"
 import Pending from "../components/Pending";
 import { dataModule } from "mincu-react";
-
-if (process.env.NODE_ENV === 'development') {
-  import('mincu-debug').then(({ default: debugModule }) => {
-    debugModule.applyConsole()
-  })
-} //mincud引入代码
+import { API } from '../utils'
 
 const getParam = (key: string) => {
   const url = new URL(location.href)
@@ -22,29 +17,27 @@ const getParam = (key: string) => {
 const TicketPage: React.FC = () => {
   const [statusCode, setStatusCode] = useState(999)
   const { top } = useSafeArea()
-  const { isReady } = useLogin()
+  const { isReady, id } = useLogin()
 
   useEffect(() => {
-    if (isReady) {
-      const token = getParam('token')
-      const id = dataModule.userInfo.profile.entireProfile.base_info.xh
-      const ticketURL = "https://qrcode-eticket.vercel.app/api/checkin?token=" + token + "&id=" + id;
+    const token = getParam('token')
+    if (token && id) {
+      const ticketURL = `${API}/checkin?token=${token}&id=${id}`;
+
       axios.get(ticketURL)
         .then((res) => {
           setStatusCode(res.data.code)
         })
-        .catch((err) => {
-          setStatusCode(err.response.data.code)
-        })
+    } else {
+      setStatusCode(403)
     }
-
-  }, [isReady])
-
-  const StatusComponent = useCheckTicket(statusCode);
+  }, [id])
 
   if (!isReady) {
     return <Pending />
   }
+
+  const StatusComponent = useCheckTicket(statusCode);
 
   return (
     <>
