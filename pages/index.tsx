@@ -8,11 +8,11 @@ import { useInfoState } from '../store/index'
 import styles from "./index.module.css"
 import Pending from "../components/Pending";
 
-// if (process.env.NODE_ENV === 'development') {
-//   import('mincu-debug').then(({ default: debugModule }) => {
-//     debugModule.applyConsole()
-//   })
-// } mincud引入代码
+if (process.env.NODE_ENV === 'development') {
+  import('mincu-debug').then(({ default: debugModule }) => {
+    debugModule.applyConsole()
+  })
+} //mincud引入代码
 
 const TicketPage: React.FC = () => {
   const [statusCode, setStatusCode] = useState(999)
@@ -24,7 +24,9 @@ const TicketPage: React.FC = () => {
   //获取url的token
   const getToken = useEffect(() => {
     const url = location.href
+    // const url = "https://activity-et-icket.vercel.app/?token=979007"
     const param = getURLParam(url);
+    console.log(param)
     setToken(param.token);
   }, [token])
 
@@ -41,7 +43,7 @@ const TicketPage: React.FC = () => {
 
   //发送请求验证
   const sendTicket = useEffect(() => {
-    const ticketURL = "/api/checkin?token=" + token + "&id=" + studentID;
+    const ticketURL = "https://qrcode-eticket.vercel.app/api/checkin?token=" + token + "&id=" + studentID;
     axios.get(ticketURL)
       .then((res) => {
         setStatusCode(res.data.code)
